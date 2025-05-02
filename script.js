@@ -1,6 +1,26 @@
 'use strict'
-const getLine = function(str) {
-    str != typeof String ? console.log(str.trim().slice(0, 30) + "...") : console.log("Вы ввели не текстовый тип данных!!!");
+
+let arr = [...new Array(7)].map(() => Math.round(Math.random() * 100)).map(String)
+
+console.log(arr)
+
+for (let i = 0; i < 7; i++) {
+    if (arr[i].startsWith('2') || arr[i].startsWith('4')) {
+        console.log(arr[i]);
+    }
 }
 
-getLine("            это текст-'рыба', часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной 'рыбой' для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum       ")
+const isPrimeNumber = function(num) {
+    for (let i = 2; i < num; i++) {
+        if (num % i === 0) return false
+    }
+    return num !== 1
+}
+
+const getPrimeNUmber = function(numMax) {
+    for (let i = 2; i <= numMax; i++) {
+        if (isPrimeNumber(i)) console.log("Простое число:", i, "делители этого числа:", 1, "и", i);
+    }
+}
+
+getPrimeNUmber(500);
