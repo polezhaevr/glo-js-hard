@@ -1,26 +1,58 @@
 'use strict'
+const getRandomNumber = function() {
+    return [...new Array(1)].map(() => Math.round(Math.random() * 100)).join('');
+}
+const getsNumber = function() {
+    let currentCount = 3;
+    const num = getRandomNumber();
+    console.log('Загаданное число:', num);
 
-let arr = [...new Array(7)].map(() => Math.round(Math.random() * 100)).map(String)
-
-console.log(arr)
-
-for (let i = 0; i < 7; i++) {
-    if (arr[i].startsWith('2') || arr[i].startsWith('4')) {
-        console.log(arr[i]);
+    const isNumber = function(num) {
+        if (num === null) return null;
+        const trimmed = num.trim();
+        if (!trimmed) return NaN;
+        const number = Number(trimmed);
+        return isNaN(number) ? NaN : number;
     }
+
+    const getQuestion = function(str) {
+        const question = confirm(str);
+        if (question) {
+            currentCount = 3;
+            getsNumber();
+            return;
+        } else {
+            alert('До свидания!')
+        }
+    }
+
+    const gameBot = function() {
+
+        if (currentCount <= 0) {
+            getQuestion("Попытки закончились, хотите сыграть еще?");
+            return;
+        }
+
+        let secretNumber = prompt("Угадай число от 1 до 100");
+
+        if (secretNumber === null) {
+            alert('Вы отказались от ввода , до свидания!!!');
+        } else if (!isNumber(secretNumber)) {
+            alert('Введи число!');
+            return gameBot();
+        } else if (secretNumber < num) {
+            alert('Загаданное число больше , осталось попыток ' + currentCount--);
+            return gameBot();
+        } else if (secretNumber > num) {
+            alert('Загаданное число меньше , осталось попыток ' + currentCount--);
+            return gameBot();
+        } else if (secretNumber == num) {
+            getQuestion("Поздравляю, Вы угадали!!! Хотели бы сыграть еще?");
+        }
+        console.dir(gameBot);
+
+    }
+    gameBot();
 }
 
-const isPrimeNumber = function(num) {
-    for (let i = 2; i < num; i++) {
-        if (num % i === 0) return false
-    }
-    return num !== 1
-}
-
-const getPrimeNUmber = function(numMax) {
-    for (let i = 2; i <= numMax; i++) {
-        if (isPrimeNumber(i)) console.log("Простое число:", i, "делители этого числа:", 1, "и", i);
-    }
-}
-
-getPrimeNUmber(500);
+getsNumber()
