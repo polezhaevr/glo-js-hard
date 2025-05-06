@@ -1,58 +1,18 @@
 'use strict'
-const getRandomNumber = function() {
-    return [...new Array(1)].map(() => Math.round(Math.random() * 100)).join('');
-}
-const getsNumber = function() {
-    let currentCount = 3;
-    const num = getRandomNumber();
-    console.log('Загаданное число:', num);
 
-    const isNumber = function(num) {
-        if (num === null) return null;
-        const trimmed = num.trim();
-        if (!trimmed) return NaN;
-        const number = Number(trimmed);
-        return isNaN(number) ? NaN : number;
+const week = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+const today = new Date().getDay();
+const output = document.querySelector('.wrapper');
+
+week.forEach((day, index) => {
+    let line = day;
+    if (index === today) {
+        line = `<b>${line}</b>`;
     }
 
-    const getQuestion = function(str) {
-        const question = confirm(str);
-        if (question) {
-            currentCount = 3;
-            getsNumber();
-            return;
-        } else {
-            alert('До свидания!')
-        }
+    if (index === 6 || index === 7) {
+        line = `<i>${line}</i>`;
     }
 
-    const gameBot = function() {
-
-        if (currentCount <= 0) {
-            getQuestion("Попытки закончились, хотите сыграть еще?");
-            return;
-        }
-
-        let secretNumber = prompt("Угадай число от 1 до 100");
-
-        if (secretNumber === null) {
-            alert('Вы отказались от ввода , до свидания!!!');
-        } else if (!isNumber(secretNumber)) {
-            alert('Введи число!');
-            return gameBot();
-        } else if (secretNumber < num) {
-            alert('Загаданное число больше , осталось попыток ' + currentCount--);
-            return gameBot();
-        } else if (secretNumber > num) {
-            alert('Загаданное число меньше , осталось попыток ' + currentCount--);
-            return gameBot();
-        } else if (secretNumber == num) {
-            getQuestion("Поздравляю, Вы угадали!!! Хотели бы сыграть еще?");
-        }
-        console.dir(gameBot);
-
-    }
-    gameBot();
-}
-
-getsNumber()
+    output.innerHTML += line + '<br>';
+});
