@@ -1,6 +1,6 @@
 'use strict'
 
-const week = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+const week = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
 const today = new Date().getDay();
 const output = document.querySelector('.wrapper');
 
@@ -10,9 +10,11 @@ week.forEach((day, index) => {
         line = `<b>${line}</b>`;
     }
 
-    if (index === 6 || index === 7) {
+    if (index === 5 || index === 6) {
         line = `<i>${line}</i>`;
     }
 
     output.innerHTML += line + '<br>';
+
+    console.log(day, index)
 });
